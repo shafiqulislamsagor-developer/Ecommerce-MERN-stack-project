@@ -4,6 +4,7 @@ const morgan = require("morgan");
 const app = express();
 const xss = require("xss-clean");
 const rateLimite = require("express-rate-limit");
+const { userRouter } = require("./routers/UserRouter");
 
 const reateLimiter = rateLimite.rateLimit({
   windowMs: 1 * 60 * 1000,
@@ -19,6 +20,9 @@ app.use(reateLimiter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// routers
+app.use("/api/users", userRouter);
+
 const isLoggedIn = (req, res, next) => {
   const login = true;
   if (login) {
@@ -31,16 +35,6 @@ const isLoggedIn = (req, res, next) => {
 
 app.get("/", (req, res) => {
   res.send("Hello , API is working fine !!!");
-});
-
-// User
-app.get("/api/user", (req, res) => {
-  const id = req.body.id;
-  console.log(id);
-  res.status(200).send({
-    user: "user",
-    message: "user is logged in",
-  });
 });
 
 app.get("/products", (req, res) => {
