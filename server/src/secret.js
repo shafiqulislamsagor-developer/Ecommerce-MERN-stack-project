@@ -5,4 +5,7 @@ const mongodbURL =
   process.env.MONGODB_ATLAS_URL ||
   "mongodb://localhost:27017/ecommerceProjectDB";
 
-module.exports = { server_port, mongodbURL };
+const defultImagePath =
+  process.env.DEFAULT_IMAGE || "public/images/user/userImg.jpg";
+
+module.exports = { server_port, mongodbURL, defultImagePath };
