@@ -2,10 +2,20 @@ const express = require("express");
 const createHttpError = require("http-errors");
 const morgan = require("morgan");
 const app = express();
+const xss = require("xss-clean");
+const rateLimite = require("express-rate-limit");
+
+const reateLimiter = rateLimite.rateLimit({
+  windowMs: 1 * 60 * 1000,
+  max: 5,
+  message: "Too many requests from this IP, please try again in a minute.",
+});
 
 // Middleware to log requests
 
 app.use(morgan("dev"));
+app.use(xss());
+app.use(reateLimiter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
