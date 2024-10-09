@@ -1,6 +1,9 @@
 const express = require("express");
+const morgan = require("morgan");
 const app = express();
 const port = 3001;
+
+app.use(morgan("dev"));
 
 app.get("/", (req, res) => {
   res.send("Hello , API is working fine !!!");
@@ -8,7 +11,7 @@ app.get("/", (req, res) => {
 
 app.get("/products", (req, res) => {
   res.status(200).send({
-    massege: "acci ami",
+    massege: "acci ami nodemon app niye",
   });
 });
 
