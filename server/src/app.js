@@ -5,6 +5,7 @@ const app = express();
 const xss = require("xss-clean");
 const rateLimite = require("express-rate-limit");
 const { userRouter } = require("./routers/UserRouter");
+const seedRouter = require("./routers/seedRouter");
 
 const reateLimiter = rateLimite.rateLimit({
   windowMs: 1 * 60 * 1000,
@@ -22,6 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // routers
 app.use("/api/users", userRouter);
+app.use("/api/seed", seedRouter);
 
 const isLoggedIn = (req, res, next) => {
   const login = true;
