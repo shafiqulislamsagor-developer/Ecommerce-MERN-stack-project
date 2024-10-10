@@ -1,7 +1,7 @@
 const createHttpError = require("http-errors");
 const User = require("../models/userModel");
 const { successResponse } = require("./responseController");
-const { findUser } = require("../services/findUser");
+const { findWithId } = require("../services/findWithId");
 
 const getUsers = async (req, res, next) => {
   try {
@@ -61,11 +61,13 @@ const getUsers = async (req, res, next) => {
   }
 };
 
-const singleUser = async (req, res, next) => {
+const getCurrentUser = async (req, res, next) => {
   try {
     // somthing
     const id = req.params.id;
-    const user = await findUser(id);
+    const options = { password: 0 };
+
+    const user = await findWithId(id, options);
     return successResponse(res, {
       message: "single user data is available",
       statusCode: 200,
@@ -76,4 +78,12 @@ const singleUser = async (req, res, next) => {
   }
 };
 
-module.exports = { getUsers, singleUser };
+const deleteCurrentUser = async (req, res, next) => {
+  try {
+    // somthing
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { getUsers, getCurrentUser, deleteCurrentUser };
