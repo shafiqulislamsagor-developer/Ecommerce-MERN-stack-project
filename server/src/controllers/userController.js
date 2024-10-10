@@ -1,7 +1,7 @@
 const createHttpError = require("http-errors");
 const User = require("../models/userModel");
 const { successResponse } = require("./responseController");
-const mongoose = require("mongoose");
+const { findUser } = require("../services/findUser");
 
 const getUsers = async (req, res, next) => {
   try {
@@ -65,19 +65,13 @@ const singleUser = async (req, res, next) => {
   try {
     // somthing
     const id = req.params.id;
-    const options = { password: 0 };
-    const user = await User.findById(id, options);
-    if (!user) throw createHttpError(404, "User not found");
+    const user = await findUser(id);
     return successResponse(res, {
       message: "single user data is available",
       statusCode: 200,
       payload: { user },
     });
   } catch (error) {
-    if (error instanceof mongoose.Error) {
-      next(createHttpError(400, "invalid user"));
-      return;
-    }
     next(error);
   }
 };
