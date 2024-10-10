@@ -6,6 +6,7 @@ const xss = require("xss-clean");
 const rateLimite = require("express-rate-limit");
 const { userRouter } = require("./routers/UserRouter");
 const seedRouter = require("./routers/seedRouter");
+const { errorResponse } = require("./controllers/responseController");
 
 const reateLimiter = rateLimite.rateLimit({
   windowMs: 1 * 60 * 1000,
@@ -53,8 +54,8 @@ app.use((req, res, next) => {
 // server error handling
 
 app.use((error, req, res, next) => {
-  return res.status(error.status || 500).send({
-    success: false,
+  return errorResponse(res, {
+    statusCode: error.status,
     message: error.message,
   });
 });
