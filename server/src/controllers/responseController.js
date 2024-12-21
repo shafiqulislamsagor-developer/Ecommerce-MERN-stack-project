@@ -7,6 +7,8 @@ const errorResponse = (
     message,
   });
 };
+
+// just comment 
 const successResponse = (
   res,
   { statusCode = 200, message = "successfully", payload = {} }
