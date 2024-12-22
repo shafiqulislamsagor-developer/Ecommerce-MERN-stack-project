@@ -1,3 +1,3 @@
-# E-Commerce MERN stack Project
+# E-Commerce MERN stack Projects
 
 
