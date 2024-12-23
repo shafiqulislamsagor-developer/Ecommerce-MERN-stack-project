@@ -1,6 +1,6 @@
 const data = require("../data");
 const User = require("../models/userModel");
-
+// comment
 const seedUser = async (req, res, next) => {
   try {
     // deleting all existing users
